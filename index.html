@@ -8,22 +8,24 @@
   <style>
     body {
       overflow: hidden;
+      /* 写死背景 */
+      background: url("/bg.png");
     }
   </style>
 </head>
 <body>
   <!-- 3D云层效果 -->
-  <script type="text/javascript" src="./lib/clouds/ThreeWebGL.js"></script> 
-  <script type="text/javascript" src="./lib/clouds/ThreeExtras.js"></script> 
-  <script type="text/javascript" src="./lib/clouds/Detector.js"></script> 
-  <script type="text/javascript" src="./lib/clouds/RequestAnimationFrame.js"></script> 
+  <script type="text/javascript" src="./lib/clouds/ThreeWebGL.js"></script>
+  <script type="text/javascript" src="./lib/clouds/ThreeExtras.js"></script>
+  <script type="text/javascript" src="./lib/clouds/Detector.js"></script>
+  <script type="text/javascript" src="./lib/clouds/RequestAnimationFrame.js"></script>
   <script id="vs" type="x-shader/x-vertex">
     varying vec2 vUv;
     void main() {
         vUv = uv;
         gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
     }
-  </script> 
+  </script>
   <script id="fs" type="x-shader/x-fragment">
     uniform sampler2D map;
     uniform vec3 fogColor;
@@ -37,8 +39,8 @@
       gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
       gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
     }
-  </script> 
-  <script src="./lib/clouds/Clouds.js"></script>
+  </script>
+<!--  <script src="./lib/clouds/Clouds.js"></script>-->
 
   <!-- Vue -->
   <script src="./lib/vue.min.js"></script>
@@ -54,12 +56,20 @@
   <script src="./lib/form-json/csv.js"></script>
   <script src="./lib/form-json/xlsx.js"></script>
   <script src="./lib/form-json/form.js"></script>
+  <video src="/bgm.m4a"></video>
 
   <!-- Vue 渲染组件 -->
   <div id="app"></div>
 
   <!-- Vue UI -->
   <script src="./js/index.js"></script>
+  <!-- 任意点击触发 bgm，仅触发一次 -->
+  <script>
+    document.addEventListener('click', function () {
+      document.querySelector('video').play();
+      document.removeEventListener('click', arguments.callee);
+    });
+  </script>
   <link rel="stylesheet" href="./css/index.css">
 </body>
 </html>
