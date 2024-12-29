@@ -48,6 +48,13 @@
   <script src="./js/lucky-draw.js"></script>
   <link rel="stylesheet" href="./css/lucky-draw.css">
 
+  <!-- 任意点击触发 bgm，仅触发一次 -->
+  <script>
+  document.addEventListener('click', function () {
+    document.querySelector('video').play();
+    document.removeEventListener('click', arguments.callee);
+  });
+  </script>
   <!-- 星空 -->
 <!--  <script src="./js/the-sky.js"></script>-->
 <!--  <link rel="stylesheet" href="./css/the-sky.css">-->
